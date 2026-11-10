@@ -1,12 +1,12 @@
 # Interactions
 
-**Owner:** student D · Task card: [semester1-tasks.md](../../../Docs/semester1-tasks.md), card D
+**Owner:** Group 4 (Objects, Characters and Sound) · Tasks: [semester1-tasks.md](../../../Docs/semester1-tasks.md), section 5
 
 Will contain: TouchTrigger, RaiseTrigger and the TraditionLabel prefab.
 
 ## My plan
 
-<!-- Session 1: what you'll build first, what you don't understand yet, which AI tool you'll use. -->
+<!-- Session 1: who is Person 1 and Person 2, and what you'll build first. -->
 
 ## What it does
 

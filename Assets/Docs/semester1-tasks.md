@@ -1,234 +1,316 @@
-# Semester 1: Your Tasks (5 sessions, 8 students)
+# Semester 1: What We Build and Who Does What
 
-Read [team-guide.md](team-guide.md) first. It explains how we work together on GitHub and how to use AI.
+8 students · 4 groups of 2 · 5 sessions
 
-## The goal for this semester
-
-By the end of session 5 we will have:
-
-1. **The scene template working.** Eight small shared systems, one built by each of you, plugged together.
-2. **Your first scene built from the template** (Level 1: greybox, narration, sound, fades).
-3. **Scene 8, The Lamp, playable** with its interaction: the visitor raises the lamp.
-4. **A narration script and scene card** for each of your two scenes.
-
-Stretch goal: your second scene at Level 1 too. Then all 16 scenes play from start to end.
-
-Not this semester: captions, translations, the delivered 3D characters, real voices and lighting. Those come in the spring.
-
-## Your job in one line
-
-**Each of you builds one shared system and owns two scenes.** Your letter (A to H) is given by the instructor.
-
-| | System you build | Your scenes (first one in bold) | Buddy | Difficulty |
-|---|---|---|---|---|
-| **A** | Rig, movement and boundary | **1 The mountain**, 2 The empty place | G | ★★☆ |
-| **B** | Fader and scene flow (+ Welcome, Credits, headset-off reset) | **4 The grotto**, 3 The hermit uncles | F | ★★☆ |
-| **C** | Gaze selection (+ Chapter menu) | **5 Leaving home, a new name**, 6 The scriptorium | D | ★★☆ |
-| **D** | Touch and raise interactions (+ tradition label) | **8 The lamp**, 7 Priest, and sixteen years at Annaya | C | ★★☆ |
-| **E** | Voice lines (narration on the Timeline) | **10 The cell**, 9 To the hermitage | H | ★★★ |
-| **F** | Scene controller | **12 The last Mass**, 11 The locusts | B | ★★★ |
-| **G** | Placeholder characters | **13 Burial, and the light**, 14 The exhumation | A | ★☆☆ |
-| **H** | Audio (mixer, sounds, voice-over guide) | **16 Annaya today**, 15 Crowds, then sainthood | E | ★☆☆ |
-
-**Your buddy** tests your system with theirs in session 3, and covers for you if you miss a session.
-
-The scene list and what happens in each scene are in [the development plan, section 4](saint-charbel-development-plan.md).
+Also read [team-guide.md](team-guide.md): how we use GitHub, the 5 golden rules, and how to use AI.
 
 ---
 
-## Everyone, every session
+## 1. What we'll have at the end of the semester
 
-| Session | Everyone does |
+A first version of the app that runs on the Quest from start to end:
+
+1. **Welcome screen:** the visitor chooses **Stay seated** or **Move around**.
+2. **Chapter menu:** the 4 chapters of Saint Charbel's life.
+3. **Scenes:** at least 2 scenes from every chapter (8 scenes). Each one fades in, plays its narration and sounds, fades out, and goes to the next scene.
+4. **Scene 8, The Lamp:** the visitor can grab the lamp and raise it.
+5. **Credits** at the end.
+
+All scenes are built from one shared **scene template**, so they all work the same way.
+
+**Bonus:** all 16 scenes.
+
+**Not this semester:** the real 3D models, real voices, captions and translations. They come next semester. Until then we use simple shapes (grey boxes), a placeholder Charbel, and placeholder voices (our own recordings or text-to-speech).
+
+### How one scene works
+
+```text
+Fade in  →  The scene's Timeline plays (narration, Charbel, sounds)  →  maybe one small action
+(look at something, touch it, or raise it; if the visitor does nothing, it continues by itself after 20 s)
+→  Fade out  →  Next scene (or the chapter menu at the end of a chapter)
+```
+
+The visitor is **seated by default**. If they chose **Move around**, they can also teleport, but only inside a box around their seat (the **boundary**).
+
+---
+
+## 2. The 4 groups
+
+Each group builds **shared parts** that every scene uses, and owns **one chapter** (4 scenes).
+
+| Group | Builds | Owns chapter |
+|---|---|---|
+| **1. The Visitor** | The VR rig with hands, the seat, the boundary, Move around (teleport), and the reset when the headset is taken off | **III. The Hermitage** (scenes 9 to 12) |
+| **2. Screens and Navigation** | Fading, loading scenes, selecting by looking, the welcome screen, the chapter menu and the credits | **I. Childhood** (scenes 1 to 4) |
+| **3. Story Player** | The part that plays each scene's Timeline, the narration setup, and waiting for the visitor's action. Builds the scene template together with the instructor. | **IV. What Followed** (scenes 13 to 16) |
+| **4. Objects, Characters and Sound** | Touch and raise actions, the "devotional tradition" label, the placeholder Charbel, and the sound setup | **II. The Monastery** (scenes 5 to 8, including The Lamp) |
+
+Inside each group there's a **Person 1** and a **Person 2**. Decide who is who in session 1. You work side by side and test each other's work.
+
+**🟠 With the instructor** marks the parts that are tricky. Don't do them alone: call the instructor when you reach them.
+
+---
+
+## 3. The 5 sessions
+
+| Session | Everyone |
 |---|---|
-| **Before session 1** | Install Unity 6000.3.16f1 with Android Build Support, and GitHub Desktop. Accept the GitHub invite, clone the project and open it once (the first open takes 10 to 30 minutes). Steps are in the team guide. |
-| **1. Setup** | Run the project on a Quest or the Meta XR Simulator. Make your first pull request (below). Read your card. |
-| **2. Build v1** | Build the **minimum version** of your system in your system's test scene. |
-| **3. Finish and plug in** | Finish the full version, make it a prefab, write your README, test it with your buddy. Everything merged by the end. |
-| **4. First scene** | Build your first scene (bold in the table) at Level 1 from the template. |
-| **5. Second scene and showcase** | Build your second scene at Level 1, fix bugs, update your README. We play everything together at the end. |
+| **1. Start** | Set up the project, make your first pull request, do your group's **starter task** (section 4). |
+| **2. Build** | Build your group's first parts (session 2 in your group's section). |
+| **3. Finish and connect** | Finish your parts and test them with the other groups. Everything is merged by the end. Last 40 minutes: write the narration for your chapter (section 6). |
+| | *Before session 4, the instructor and Group 3 put the scene template together.* |
+| **4. Scenes** | Record placeholder narration, then each person starts a scene of your chapter from the template (section 7). |
+| **5. Finish and play** | Finish your scenes and Scene 8, The Lamp. At the end we play everything together on the projector. |
 
-### Your first pull request (session 1)
+---
+
+## 4. Session 1: start here
+
+### Step 1: Get the project (30 min)
+
+If you haven't yet, follow "One-time setup" in [team-guide.md](team-guide.md): install Unity 6000.3.16f1 with Android Build Support, install GitHub Desktop, clone the project and open it. The first open takes 10 to 30 minutes; start your group's starter task on your partner's computer meanwhile.
+
+### Step 2: Your first pull request (10 min)
+
+Each person:
 
 1. In GitHub Desktop, make a branch called `yourname/setup`.
-2. In Unity, create a folder `Assets/_Project/Sandbox/<YourName>/` and save an empty scene in it called `<YourName>_Sandbox.unity`.
-3. Open your system's `README.md` (in `Assets/_Project/Systems/<System>/`) and write 3 lines under "My plan": what you will build first, what you don't understand yet, and which AI tool you'll use.
-4. Commit, push, and open a pull request. Done.
+2. In Unity, create the folder `Assets/_Project/Sandbox/<YourName>/` and save an empty scene in it called `<YourName>_Sandbox.unity`. Your sandbox is yours alone, for trying things out.
+3. Commit, push, and create the pull request (team guide, "Every session: the loop").
 
-### Homework between sessions
+### Step 3: Your group's starter task (45 to 60 min)
 
-These can be done outside class, at home or in extra sessions. Each takes about 1 to 2 hours with AI help.
+Each starter task is the first piece of your group's real work. Do it in one of your sandbox scenes.
 
-| Between | Homework |
-|---|---|
-| Session 1 and 2 | Read your card again. Optional: ask an AI to explain the Unity features your system uses. |
-| Session 2 and 3 | **Scene cards and narration scripts** for your 2 scenes (see "Scene homework" below). |
-| Session 3 and 4 | **Record placeholder narration** for your 2 scenes (H explains how in session 3). |
-| Session 4 and 5 | Finish your first scene if it isn't done. |
+**Group 1: hands in VR**
+
+1. Open **Meta → Tools → Building Blocks** and add **Camera Rig** and **Hand Tracking**.
+2. Add a floor (a plane) and a cube 1 m in front of you.
+3. Build And Run to a Quest (or press Play with the Meta XR Simulator).
+
+Test:
+
+- [ ] You see your own hands moving in the headset.
+- [ ] The cube is in front of you at the right size (about 1 m away).
+
+**Group 2: the welcome panel**
+
+1. Make a world-space UI panel 1.5 m in front of the camera with the title "Welcome" and two buttons: **Stay seated** and **Move around**.
+2. Make the buttons pressable with your finger (Building Block: **Poke Interaction**).
+3. Each button prints its name in the Console.
+
+Test:
+
+- [ ] Both buttons are easy to read from your seat.
+- [ ] Pressing a button with your finger prints its name, once per press.
+
+**Group 3: a first Timeline**
+
+1. Make two scenes in your sandbox, `TestA` and `TestB`. Add both to your *local* Build Profiles list (don't commit that change).
+2. In `TestA`, add a Timeline that moves a cube for 5 seconds and plays a sound.
+3. At the end of the Timeline, put a **Signal** that loads `TestB`.
+
+Test:
+
+- [ ] Press Play: the cube moves, you hear the sound, and after 5 seconds `TestB` opens.
+
+**Group 4: raise a cube**
+
+1. Add a cube you can grab with your hand (Building Block: **Grab Interaction**).
+2. Write a script `RaiseTrigger`: when the cube is lifted 25 cm above where it started, print "Raised!" in the Console, only once.
+
+Test:
+
+- [ ] You can pick up the cube with your hand.
+- [ ] Lifting it 10 cm prints nothing. Lifting it 25 cm prints "Raised!" once. Lifting it again prints nothing.
+
+When your starter task works, commit it and open a pull request.
 
 ---
 
-## The shared systems: how they connect
+## 5. Your group's work
 
-Each system must offer **exactly** these names, so the pieces plug together without anyone waiting for anyone else. If you think a name should change, ask the instructor; don't change it alone.
+### Group 1: The Visitor
+
+**What you build:** everything about the visitor's body: their view and hands, where they sit, how far they can go, and Move around.
+
+**Your folder:** `Assets/_Project/Systems/Rig/`
+
+| Session | Person 1 | Person 2 |
+|---|---|---|
+| **2** | Turn the starter rig into a prefab `[VR Rig]`. Then the **seat**: each scene has an empty object called `Seat`. When the scene starts, move the rig so the visitor's eyes are at the Seat, looking the same way the Seat faces. | **Move around:** add teleport and snap turn to the rig (no smooth joystick movement). They work only when `AppState.MovementEnabled` is on (Group 2 makes this; until then use a checkbox on your script). |
+| **3** | **The boundary:** a box around the Seat, about 2 × 2 m. When the visitor's head leaves the box, the view goes dark and shows "Please step back". When they come back, it's normal again. | **Teleport only inside the boundary:** the teleport floor is the same size as the box, so they can't teleport outside it. 🟠 With the instructor |
+| **3** | **Headset taken off:** after 10 seconds without the headset, go back to the welcome screen. 🟠 With the instructor (the headset events can be tricky) | |
+
+**How to test**
+
+- [ ] Start the scene while sitting turned to the side: you still start at the Seat, facing the scene.
+- [ ] With movement off you can't teleport. With movement on you can teleport and snap turn.
+- [ ] You can't teleport outside the box.
+- [ ] Stand up and step or lean out of the box: the view goes dark and the message shows. Step back: it's normal again.
+- [ ] Take the headset off for 10 seconds and put it back on: you're at the welcome screen.
+
+**Other groups use:** the `[VR Rig]` prefab, and a `Seat` object with the boundary on it.
+
+**First question for your AI:** "In Unity 6 with the Meta XR SDK (OVRCameraRig), write a script that, on Start, moves and rotates the rig so the CenterEyeAnchor ends up at a Transform named Seat, facing Seat.forward, rotating only around the Y axis. Explain it simply."
+
+### Group 2: Screens and Navigation
+
+**What you build:** how the visitor moves from screen to screen: fades, scene loading, choosing things by looking at them, and the welcome, menu and credits screens.
+
+**Your folders:** `Assets/_Project/Systems/SceneFlow/` and `Assets/_Project/Systems/Gaze/`. Your scenes: `00_Welcome`, `01_Menu` and `99_Credits`.
+
+| Session | Person 1 | Person 2 |
+|---|---|---|
+| **2** | **Fade and load:** the view starts black and fades in. `SceneFlow.GoTo("SceneName")` fades to black, loads the scene, and fades in. Also make `AppState`, a small class that remembers `CurrentChapter` (1 to 4) and `MovementEnabled` (on or off) between scenes. | **Select by looking:** a small dot in the middle of the view. Look at an object for 2 seconds and a ring fills up, then the object is selected (`OnSelected` event). Looking away resets the ring. |
+| **3** | **Welcome screen:** your starter panel. The choice is saved in `AppState.MovementEnabled`. If nobody chooses in 10 seconds, it picks Stay seated. Then go to the menu. Then the **credits screen**: team names, the sources from the brief, and the sound credits from Group 4; then back to the welcome screen. | **Chapter menu:** 4 chapter cards (title and years), chosen by looking or touching. The next chapter is highlighted and starts by itself after 10 seconds. Also a `GazeTrigger` for scenes: "look at this for 2 seconds" as a scene action (same names as Group 4's actions, see section 8). |
+
+**How to test**
+
+- [ ] Going from one scene to another fades out and in smoothly, with no flash of the new scene.
+- [ ] A quick glance at an object doesn't select it. Looking for 2 seconds does.
+- [ ] Choose Move around on the welcome screen: in the next scene you can teleport (with Group 1's rig). Do nothing for 10 seconds: Stay seated is chosen.
+- [ ] Each chapter card opens the right chapter. Wait 10 seconds: the highlighted chapter starts.
+- [ ] Credits show and return to the welcome screen.
+
+**Other groups use:** `SceneFlow.GoTo`, `AppState`, and `GazeTrigger`.
+
+**First question for your AI:** "In Unity 6 URP for Meta Quest 3, write a ScreenFader that fades a black sphere around the VR camera in and out, and a static SceneFlow.GoTo(string sceneName) that fades out, loads the scene, and fades in. Explain it simply."
+
+### Group 3: Story Player
+
+**What you build:** the part that plays each scene. Every scene has a Timeline with everything in it (narration, Charbel's movements, sounds), and your `SceneController` runs it from start to end.
+
+**Your folder:** `Assets/_Project/Systems/SceneController/`
+
+| Session | Person 1 | Person 2 |
+|---|---|---|
+| **2** | **Scene Director:** a prefab `[Scene Director]` with a Timeline and your `SceneController`. When the scene starts it plays the Timeline. At the **End Scene** signal it goes to the scene named in `nextScene` (use `SceneManager.LoadScene` until Group 2's `SceneFlow.GoTo` is merged). | **Narration on the Timeline:** a test scene with 3 short narration clips (record yourself or use text-to-speech) on an Audio Track, plus background sound on another track. Write the steps "How to add narration to a scene" in your README; every group will follow them. |
+| **3** | **Waiting for the visitor:** at a **Wait** signal, the Timeline pauses and a hint shows. It continues when the visitor does the action, or by itself after 20 seconds. 🟠 With the instructor (pausing a Timeline correctly is tricky) | **End of chapter:** the last scene of a chapter goes to the menu. Then connect the narration track to Group 4's Narration sound group, so the music gets quieter under the voice. |
+| **before 4** | **The scene template**, with the instructor: one scene that has everyone's parts in it, which all scenes are copied from. | |
+
+**How to test**
+
+- [ ] Your test scene fades in, plays the 3 narration clips in order, fades out, and opens the next scene.
+- [ ] At the Wait signal the Timeline stops. Press a test button: it continues. Don't press: it continues after 20 seconds.
+- [ ] The last scene of a chapter opens the menu.
+- [ ] The music gets quieter while the narration plays.
+
+**Other groups use:** the `[Scene Director]` prefab, its `nextScene` field, the **Wait** and **End Scene** signals, and `InteractionDone()` (section 8).
+
+**First question for your AI:** "In Unity 6 Timeline, write a SceneController with a PlayableDirector. A Signal called EndScene loads the scene named in a nextScene field. Explain how Signal tracks and Signal Receivers work, simply."
+
+### Group 4: Objects, Characters and Sound
+
+**What you build:** the things the visitor can do with objects, the placeholder Charbel, and how everything sounds.
+
+**Your folders:** `Assets/_Project/Systems/Interactions/`, `Assets/_Project/Systems/Characters/` and `Assets/_Project/Systems/Audio/`. Sound files go in `Assets/_Project/Audio/`.
+
+| Session | Person 1 | Person 2 |
+|---|---|---|
+| **2** | **Touch and raise:** `TouchTrigger` (touch the object with either hand) and your starter `RaiseTrigger`. Both have an `OnCompleted` event, `ShowHint()` (shows a small hand symbol near the object) and `ForceComplete()` (the action happens by itself, for example the lamp rises on its own). | **Sound setup:** an Audio Mixer called `MainMixer` with 4 groups: Narration, Music, Ambience, SFX. Music and Ambience get quieter while Narration plays. Make 4 ready-made audio objects: narration, music and ambience (heard the same everywhere) and SFX (heard from where the object is). |
+| **3** | **Finishing touches:** a soft glow and a small sound when an action is completed. The **tradition label**: a small, calm "Devotional tradition" sign that scenes can turn on. A starter set of sounds (wind, birds, bells, candle, footsteps) that we're allowed to use (free CC0 sounds or our own recordings), each written in `Assets/Docs/credits-and-licences.md`. | **Placeholder characters:** a Charbel and a monk (for example from Mixamo), set to **Humanoid**, with animations: idle, walk, kneel, pray. Make Charbel walk to a point and kneel, using only a Timeline. Charbel moves slowly and calmly, with his eyes lowered. 🟠 With the instructor if the character slides, floats or snaps back. |
+
+**How to test**
+
+- [ ] Touching the object with either hand completes it, only once.
+- [ ] Lifting 25 cm completes the raise; 10 cm doesn't.
+- [ ] Calling `ForceComplete()` makes the object do its action by itself.
+- [ ] A sound placed to your left comes from your left in the headset.
+- [ ] Music gets quieter when narration plays.
+- [ ] Charbel walks and kneels on the Timeline without sliding or floating.
+
+**Other groups use:** `TouchTrigger`, `RaiseTrigger`, the tradition label, the 4 audio objects, and `Charbel_Placeholder`.
+
+**First question for your AI:** "In Unity 6, how do I set up an Audio Mixer with Narration, Music, Ambience and SFX groups where Music and Ambience automatically get quieter while Narration plays? Step by step."
+
+---
+
+## 6. Writing your chapter's narration (session 3, last 40 minutes)
+
+Each group writes the narration for the 4 scenes of its chapter. Split them: 2 scenes per person.
+
+1. Read your chapter in [the project brief](saint-charbel-project-brief.md) ("Key moments of his life") and your scenes in [the development plan, section 4](saint-charbel-development-plan.md).
+2. For each scene, create a file `Assets/Docs/scenes/C<chapter>_S<scene>.md`, for example `C2_S08.md` for Chapter II, scene 8.
+3. Write 10 to 14 short lines, one sentence per line. That's about 1.5 minutes of speaking.
+4. Next to each fact, write where it comes from (a source in the brief). AI may help you write, but **you check every fact**: AI can invent dates and names.
+5. For traditions, use careful words: "Tradition says…", "Witnesses reported…".
+6. Visitors are of all faiths and include children. Keep it respectful and simple.
+
+Ask the instructor to read it before you record it.
+
+---
+
+## 7. Building your scenes (sessions 4 and 5)
+
+Each person builds 2 scenes of the group's chapter. Start with the scenes marked **must**.
+
+| Group | Chapter | Must (one per person) | If there's time |
+|---|---|---|---|
+| 1 | III. The Hermitage | 10 The cell, 12 The last Mass | 9 To the hermitage, 11 The locusts |
+| 2 | I. Childhood | 1 The mountain, 4 The grotto | 2 The empty place, 3 The hermit uncles |
+| 3 | IV. What Followed | 13 Burial, and the light, 16 Annaya today | 14 The exhumation, 15 Crowds, then sainthood |
+| 4 | II. The Monastery | 8 The lamp (with the raise action), 5 Leaving home, a new name | 6 The scriptorium, 7 Priest, and sixteen years at Annaya |
+
+The instructor prepares every scene file from the template. You'll find yours in `Assets/_Project/Scenes/Chapter<N>/`. Only open your own scenes.
+
+**Session 4, first 20 minutes: record placeholder narration.** Record your scene's lines with your phone or a text-to-speech tool. One file per line, named like `VO_C2_S08_03.wav` (chapter 2, scene 8, line 3). Put the files in `Assets/_Project/Audio/VO/<scene>/`.
+
+**Then build the scene:**
+
+1. Pull `main`, make a branch `yourname/c2-s08`, and open your scene.
+2. Build the place from simple shapes (cubes, planes, ProBuilder) in `Assets/_Project/Environments/<scene>/`. Keep everything outside the boundary box around the Seat.
+3. Open the scene's Timeline. Put your narration files on the narration track in order, add background sound, and move the **End Scene** signal to the end. Follow Group 3's README.
+4. Play it in the headset.
+
+**Your scene is done when:**
+
+- [ ] It fades in, plays the narration in order, fades out, and goes to the next scene.
+- [ ] You can hear the narration clearly over the background sound.
+- [ ] It works when seated, and also with Move around (you can't teleport outside the box).
+- [ ] Nothing is inside the boundary box.
+- [ ] There are no red errors in the Console.
+- [ ] Someone from another group played it and found no problems.
+
+---
+
+## 8. Names everyone must use
+
+Groups connect their work through these names. Don't change them without asking the instructor. If you need a part another group hasn't merged yet, use a simple stand-in and write `// TODO` next to it.
 
 All scripts use the namespace `SaintCharbel`.
 
-| System | Owner | What the others use (public API) |
+| Name | Made by | What it does |
 |---|---|---|
-| ScreenFader | B | `ScreenFader.Instance.FadeOut(float seconds)` and `FadeIn(float seconds)`. Both return a `Coroutine`, so others can `yield return` them. |
-| SceneFlow | B | `SceneFlow.GoTo(string sceneName)`: fade out, load the scene, fade in. |
-| AppState | B | `AppState.CurrentChapter` (int, 1 to 4) and `AppState.MovementEnabled` (bool, false by default = Stay seated). |
-| Locomotion | A | Part of `[VR Rig]`: teleport and snap turn, on only when `AppState.MovementEnabled` is true. |
-| SeatAligner | A | On the rig. `Align()` puts the visitor's head at the object named `Seat`. |
-| PlayAreaBoundary | A | On the `Seat` object. `Vector3 size` (default 2 × 2.5 × 2 m). Teleporting only works inside it; leaving it fades the view. |
-| HeadsetPresence | B | Added to the rig. No API: after 10 s without the headset, it calls `SceneFlow.GoTo("00_Welcome")`. |
-| GazeTarget | C | `float dwellSeconds = 2`, `UnityEvent OnSelected`. |
-| GazeTrigger, TouchTrigger, RaiseTrigger | C, D, D | Each has `UnityEvent OnCompleted`, `void ShowHint()` and `void ForceComplete()`. |
-| TraditionLabel | D | A prefab. Scenes turn it on with a Timeline Activation track. |
-| VoiceLine | E | A ScriptableObject with `AudioClip clip` and `string textEn, textFr, textAr` (the texts stay empty until spring). |
-| Voice Line track | E | A Timeline track you drag VoiceLine assets onto. Plays through the Narration mixer group. |
-| SceneController | F | On `[Scene Director]`. `string nextScene`, `float timeoutSeconds = 20`, `UnityEvent OnWaitStarted`, `UnityEvent OnTimeout`, `void InteractionDone()`. Signals: `WaitForInteraction` and `EndScene`. |
-| Characters | G | Prefabs `Charbel_Placeholder` and `Monk_Placeholder` (Humanoid, with an Animator), plus a `Silhouette` prefab. |
-| Audio | H | Mixer `MainMixer` with groups `Narration`, `Music`, `Ambience`, `SFX`. Prefabs `Audio_Narration2D`, `Audio_Music2D`, `Audio_Ambience2D`, `Audio_SFX3D`. |
+| `[VR Rig]` | Group 1 | The visitor: camera, hands, teleport |
+| `Seat` | Group 1 | Where the visitor starts, with the boundary box on it |
+| `SceneFlow.GoTo("SceneName")` | Group 2 | Fade out, load the scene, fade in |
+| `AppState.MovementEnabled` | Group 2 | On if the visitor chose Move around |
+| `AppState.CurrentChapter` | Group 2 | The chapter being played (1 to 4) |
+| `[Scene Director]` | Group 3 | Plays the scene's Timeline; has a `nextScene` field |
+| **Wait** and **End Scene** signals | Group 3 | Put them on a Timeline to pause for an action or end the scene |
+| `InteractionDone()` | Group 3 | Call it when the visitor's action is done; the Timeline continues |
+| `GazeTrigger`, `TouchTrigger`, `RaiseTrigger` | Groups 2 and 4 | Scene actions. Each has `OnCompleted`, `ShowHint()` and `ForceComplete()` |
+| `MainMixer` and the 4 audio objects | Group 4 | Narration, Music, Ambience, SFX |
+| `Charbel_Placeholder` | Group 4 | The placeholder Charbel |
 
-**How an interaction is wired (no code needed in the scene):**
+**How a scene action is connected (in the Inspector, no code):**
 
 ```text
-Timeline reaches the WaitForInteraction signal
-  → SceneController pauses the Timeline and fires OnWaitStarted → trigger.ShowHint()
-Visitor does the interaction
-  → trigger.OnCompleted → SceneController.InteractionDone() → Timeline continues
-Visitor does nothing for 20 seconds
-  → SceneController.OnTimeout → trigger.ForceComplete() → (same as above)
+Timeline reaches Wait   →  Scene Director pauses and calls ShowHint() on the action
+Visitor raises the lamp →  RaiseTrigger.OnCompleted  →  Scene Director's InteractionDone()  →  the Timeline continues
+Nothing for 20 seconds  →  Scene Director calls ForceComplete()  →  the lamp rises by itself  →  the Timeline continues
 ```
 
-**Need someone's system before it's merged?** Use a stand-in. For example, call `SceneManager.LoadScene` instead of `SceneFlow.GoTo`, and swap it when B's code is merged. Write `// TODO: replace with SceneFlow.GoTo` next to it.
-
 ---
 
-## Task cards
+## 9. When you're stuck
 
-Every card has a **minimum version**. If you run short of time, finish the minimum version properly; it's enough for the template to work. The full version is the goal.
+Stuck for 20 minutes? Ask, in this order:
 
-### A: Rig, movement and boundary
+1. **Your AI tool.** Paste the project context from [team-guide.md](team-guide.md) and the exact error.
+2. **Your partner.**
+3. **The group whose part you're using.**
+4. **The instructor.**
 
-Development plan chunks 1.1 and 1.2. You already know locomotion; here it's optional and limited to the boundary. Folder: `Assets/_Project/Systems/Rig/`.
-
-| Session | Do | Done when |
-|---|---|---|
-| 2 | Make the `[VR Rig]` prefab with Meta Building Blocks: Camera Rig, Hand Tracking and Locomotion (**teleport and snap turn only, no smooth movement**). Locomotion turns on only when `AppState.MovementEnabled` is true. Write `SeatAligner`: on start, move and turn the rig so the head is at `Seat`, facing the Seat's forward direction. | You see your hands; whatever way you sit or face, you start at the Seat looking forward; with `MovementEnabled` on you can teleport, and with it off you can't. |
-| 3 | Re-align when the headset is put back on. Write `PlayAreaBoundary`: a teleport floor the size of the box, so teleporting only works inside it, and head leaves the box → dark view and a "Please step back" text; back inside → normal. Prefab, README, buddy test with G. | You can't teleport outside the box. Stepping or leaning out of it darkens the view; stepping back restores it. |
-
-- **Minimum version:** rig prefab, Seat alignment on start, and locomotion that can be switched on and off.
-- **Uses:** `AppState.MovementEnabled` (B); until it's merged, use a checkbox on your own script. `ScreenFader` (B) for darkening. Until it's merged, use your own black quad in front of the camera.
-- **First prompt for the AI:** "Write a Unity C# component SeatAligner for a Meta XR camera rig (OVRCameraRig). On Start, move and rotate the rig root so that the CenterEyeAnchor ends up at the position of a Transform named Seat, facing Seat.forward, rotating only around the Y axis."
-
-### B: Fader and scene flow
-
-Chunks 1.3, 1.4, 1.6 and 1.14, plus the credits. Folder: `Assets/_Project/Systems/SceneFlow/`. You also own the scenes `00_Welcome` and `99_Credits`.
-
-| Session | Do | Done when |
-|---|---|---|
-| 2 | `ScreenFader` (a black sphere around the camera whose transparency animates; scenes start black and fade in), `SceneFlow.GoTo`, `AppState` (with `CurrentChapter` and `MovementEnabled`). | Two test scenes switch back and forth with a smooth fade, with no flash of the new scene before the fade. |
-| 3 | `00_Welcome`: two big choices, **Stay seated** and **Move around** (look at one or touch it). Stay seated is chosen after 10 s. Store it in `AppState.MovementEnabled`, show "Look around. Use your hands when you see this symbol.", then go to `01_Menu`. `99_Credits`: names of the team, sources from the brief, and the sound credits from H. `HeadsetPresence`: headset off for 10 s → `00_Welcome` (Meta SDK event `OVRManager.HMDUnmounted`). README, buddy test with F. | The choice reaches the next scenes; credits fade through, then return to Welcome; headset off for 10 s → Welcome. |
-
-- **Minimum version:** fade in on start, and `GoTo` that fades out and loads.
-- **First prompt for the AI:** "In Unity 6 URP for Meta Quest 3, write a ScreenFader singleton that fades a black inside-out sphere around the VR camera. FadeOut(float seconds) and FadeIn(float seconds) return a Coroutine. Then write a static SceneFlow.GoTo(string sceneName) that fades out, loads the scene asynchronously and fades in."
-
-### C: Gaze selection and chapter menu
-
-Chunks 1.5 and 1.7, and `GazeTrigger` from 1.10. Folder: `Assets/_Project/Systems/Gaze/`. You also own the scene `01_Menu`.
-
-| Session | Do | Done when |
-|---|---|---|
-| 2 | A small dot in the centre of view. `GazeTarget`: looking at it fills a ring over `dwellSeconds`, then `OnSelected` fires. Looking away resets the ring. | You select a test cube by looking at it, and a quick glance past it doesn't select it. |
-| 3 | `01_Menu`: four chapter cards (title and years), selectable by gaze or by touching them. The next chapter is highlighted and starts by itself after 10 s. `GazeTrigger` for scenes (wraps `GazeTarget`, with `OnCompleted`, `ShowHint`, `ForceComplete`). Prefab, README, buddy test with D. | The menu starts each chapter, and auto-starts the next one. |
-
-- **Minimum version:** dwell selection with a ring, and a menu that auto-starts chapter 1.
-- **Uses:** `SceneFlow.GoTo` (B). Until merged, use `SceneManager.LoadScene`.
-- **First prompt for the AI:** "In Unity 6 with the Meta XR SDK, write a GazePointer that raycasts from the center eye camera every frame and a GazeTarget component with a dwellSeconds field and a UnityEvent OnSelected. While looked at, a world-space ring image fills from 0 to 1; looking away resets it."
-
-### D: Touch and raise interactions, tradition label, Scene 8
-
-Chunks 1.10 and 1.13, and the vertical slice 1.16. Folder: `Assets/_Project/Systems/Interactions/`.
-
-| Session | Do | Done when |
-|---|---|---|
-| 2 | `TouchTrigger` (touch the object with either hand) and `RaiseTrigger` (grab it with Meta's Grab Interaction and lift it about 25 cm above its start). Both fire `OnCompleted`. | Both work in the headset with hand tracking. |
-| 3 | Add `ShowHint()` (a hand symbol near the object), `ForceComplete()` (the object does the action by itself: the lamp rises on its own) and a small glow and sound when completed. Make the `TraditionLabel` prefab ("Devotional tradition", small and calm). README, buddy test with C. | Ignoring the object and calling `ForceComplete()` still completes it nicely. |
-| 4–5 | **Scene 8, The Lamp, to Level 3**: Level 1 plus Charbel (from G), sounds (from H), the tradition label and the raise interaction. | Scene 8 plays from start to end, with and without the visitor raising the lamp. |
-
-- **Minimum version:** both triggers fire `OnCompleted`, and `ForceComplete()` just fires it too.
-- **First prompt for the AI:** "Using the Meta XR Interaction SDK (Grab Interaction building block, Grabbable and HandGrabInteractable, not XR Interaction Toolkit), write a RaiseTrigger component: when the object is grabbed and lifted 0.25 m above its start height, fire UnityEvent OnCompleted once."
-
-### E: Voice lines
-
-Chunk 1.8. Folder: `Assets/_Project/Systems/VoiceLines/`. **This is the hardest system.** Ask for help early.
-
-| Session | Do | Done when |
-|---|---|---|
-| 2 | The `VoiceLine` ScriptableObject. A custom Timeline track "Voice Line" with a clip that plays the VoiceLine's audio, and whose length matches the audio. | A test Timeline plays 3 voice lines in order. |
-| 3 | Route the audio to the `Narration` mixer group (with H). An editor menu item "Create VoiceLines from selected audio": select a folder of WAV files, get one VoiceLine asset per file. README with a GIF or screenshots. Buddy test with H. | Another student turns a folder of WAV files into voice lines on a Timeline in under 2 minutes. |
-
-- **Minimum version:** `VoiceLine` assets, and scenes use Timeline's built-in Audio Track for now. Tell the instructor if you fall back to this.
-- **First prompt for the AI:** "In Unity 6 Timeline 1.8, write a custom track: a VoiceLine ScriptableObject (AudioClip clip, string textEn, textFr, textAr), a VoiceLinePlayableAsset clip that plays the clip through an AudioSource and reports its duration, and a VoiceLineTrack. Explain each class in one sentence."
-
-### F: Scene controller
-
-Chunk 1.9. Folder: `Assets/_Project/Systems/SceneController/`.
-
-| Session | Do | Done when |
-|---|---|---|
-| 2 | `SceneController` on a `[Scene Director]` prefab with a PlayableDirector. It plays the Timeline after the fade in. The `EndScene` signal calls `SceneFlow.GoTo(nextScene)`. | A test scene plays its Timeline, then loads the next scene. |
-| 3 | The `WaitForInteraction` signal: pause the Timeline, fire `OnWaitStarted`, and wait for `InteractionDone()` or `timeoutSeconds`. On timeout, fire `OnTimeout` and continue. Ignore `InteractionDone()` when not waiting. At the end of a chapter, go to `01_Menu`. README, buddy test with B. | A test scene pauses, continues after a button press or after 20 s, and moves on. |
-
-- **Minimum version:** play the Timeline, and load the next scene when it ends (no waiting).
-- **Uses:** `SceneFlow.GoTo` (B). Until merged, use `SceneManager.LoadScene`.
-- **First prompt for the AI:** "In Unity 6 Timeline, write a SceneController with a PlayableDirector. Two Signal assets: WaitForInteraction pauses the director (director.playableGraph.GetRootPlayable(0).SetSpeed(0)) and starts a timeout; EndScene loads nextScene. Public method InteractionDone() resumes. UnityEvents OnWaitStarted and OnTimeout."
-
-### G: Placeholder characters
-
-Chunk 1.11. Folder: `Assets/_Project/Systems/Characters/`.
-
-| Session | Do | Done when |
-|---|---|---|
-| 2 | Two humanoid placeholder characters (for example from Mixamo): one for Charbel, one for a generic monk. Import as **Humanoid**. Animations: idle, walk, kneel, pray, write, sit, lie down, raise arms. | The placeholder walks to a point and kneels, driven only by a Timeline Animation track. |
-| 3 | Prefabs `Charbel_Placeholder`, `Monk_Placeholder` and a `Silhouette` (a dark, simple figure for crowds and villagers). Test swapping the Charbel model for another humanoid. README: "How to animate Charbel on a Timeline" in 6 steps. Buddy test with A (character standing at the right distance from the Seat). | Another student makes Charbel walk and pray on a Timeline using only your README. |
-
-- **Minimum version:** one placeholder with idle, walk and pray.
-- **Remember:** Charbel keeps his eyes lowered and moves slowly and calmly (design rule 13).
-- **First prompt for the AI:** "Step by step: how do I import a Mixamo character and animations into Unity 6 as Humanoid, and make the character walk to a point and then kneel using only a Timeline Animation track, without root motion problems?"
-
-### H: Audio
-
-Chunks 1.12, 2.6 and 2.7. Folders: `Assets/_Project/Systems/Audio/` and `Assets/_Project/Audio/` (SFX, Ambience, Music).
-
-| Session | Do | Done when |
-|---|---|---|
-| 2 | `MainMixer` with the 4 groups. Music and Ambience get quieter while narration plays (Duck Volume). The 4 audio-source prefabs (narration, music and ambience 2D; SFX 3D). | In the headset, a sound placed to your left comes from your left, and music dips under narration. |
-| 3 | A starter sound library: wind, birds, night insects, a church bell, a chapel interior, a candle and footsteps. Only sounds we're allowed to use (CC0 or recorded by us). Write every file in `Assets/Docs/credits-and-licences.md`. Give a 5-minute talk at the start of session 3: **how to record placeholder narration** (phone or text-to-speech, 48 kHz WAV, file names like `VO_C2_S08_03.wav`). Buddy test with E. | Every student knows how to record and name their narration files. |
-
-- **Minimum version:** the mixer with 4 groups and the prefabs, without ducking.
-- **First prompt for the AI:** "In Unity 6, how do I set up an Audio Mixer with Narration, Music, Ambience and SFX groups where Music and Ambience duck automatically while Narration plays (Send and Duck Volume effects)? Step by step."
-
----
-
-## Scene homework (between sessions 2 and 3)
-
-For **each of your 2 scenes**, create `Assets/Docs/scenes/C<chapter>_S<scene>.md` (for example `C2_S08.md`). Copy the scene card template from [the development plan, section 10](saint-charbel-development-plan.md), fill it in, and add the narration under it.
-
-- About 10 to 14 short lines, for about 90 to 110 seconds of narration. One sentence per line.
-- Use the facts and sources in [the project brief](saint-charbel-project-brief.md). Next to each fact, note its source. AI may help you write, but **you** check every fact against the sources: AI can invent dates and names.
-- For devotional traditions, use careful wording: "Tradition says…", "Witnesses reported…".
-- Visitors are of all faiths and include children. Keep it respectful and simple.
-
-## Building a scene at Level 1 (sessions 4 and 5)
-
-The instructor prepares your scene file from the template. You'll find it in `Assets/_Project/Scenes/Chapter<N>/`. Only open your own scenes.
-
-1. Pull `main`, make a branch `yourname/c2-s08`, and open your scene.
-2. Build the environment from simple shapes (cubes, planes, ProBuilder) in `Environments/<scene>/`. Keep it outside the boundary box around the Seat. If your scene is worth exploring, you may make the box bigger; check that it still works from the Seat.
-3. Put your narration WAV files in `Audio/VO/<scene>/`, and turn them into voice lines (E's menu item).
-4. Open the scene's Timeline: put the voice lines on the Voice Line track, add an ambience clip, and put the `EndScene` signal at the end.
-5. Play it in the headset or the Simulator: it fades in, plays the narration, fades out and goes to the next scene.
-6. Check the Definition of Done in [the development plan, section 8](saint-charbel-development-plan.md), then commit, push and open a pull request.
+Anything marked 🟠: call the instructor right away.

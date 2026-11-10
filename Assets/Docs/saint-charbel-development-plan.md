@@ -245,6 +245,7 @@ Build these in order; each one is small. Test every chunk in the headset before 
 - **Done when:** the menu can start each chapter, and it auto-starts the next one.
 
 **1.8 Voice lines (narration)** · L · Needs 1.4
+- **Semester 1 (Fall 2026) simplification:** scenes put narration on Timeline's built-in Audio Track. The `VoiceLine` asset and custom track below are built in the spring, together with captions (Phase 6), and the clips are moved onto it then.
 - `VoiceLine` asset: one narration audio clip, plus empty English, French and Arabic text fields for later captions.
 - A custom Timeline "Voice line" track: drag a VoiceLine onto it, and it plays that line's audio. In Phase 6 the same track will also show the caption for exactly the clip's length.
 - **Done when:** a test Timeline plays 3 voice lines in order.

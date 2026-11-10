@@ -1,12 +1,12 @@
 # SceneFlow
 
-**Owner:** student B · Task card: [semester1-tasks.md](../../../Docs/semester1-tasks.md), card B
+**Owner:** Group 2 (Screens and Navigation) · Tasks: [semester1-tasks.md](../../../Docs/semester1-tasks.md), section 5
 
 Will contain: ScreenFader, `SceneFlow.GoTo` and AppState, plus the `00_Welcome` and `99_Credits` scenes.
 
 ## My plan
 
-<!-- Session 1: what you'll build first, what you don't understand yet, which AI tool you'll use. -->
+<!-- Session 1: who is Person 1 and Person 2, and what you'll build first. -->
 
 ## What it does
 

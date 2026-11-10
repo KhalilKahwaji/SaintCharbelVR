@@ -6,7 +6,7 @@ Your tasks are in [semester1-tasks.md](semester1-tasks.md). The full project pla
 
 ## The 5 golden rules
 
-1. **Only change your own folder and your own scenes.** Your system folder, your sandbox folder, and the scenes you own. Nothing else.
+1. **Only change your group's folders, your own sandbox, and your own scenes.** Nothing else.
 2. **Never change ProjectSettings, Packages or the Build Profiles scene list.** If you need a package or a setting, ask the instructor.
 3. **Always commit the `.meta` file together with its asset.** Every file in Unity has a `.meta` partner. Without it, the asset breaks for everyone else.
 4. **Pull before you start. Push before you leave.**
@@ -86,7 +86,7 @@ Save and commit before switching. If Unity shows strange errors after a switch, 
 | You pushed something by mistake | Tell the instructor. Nothing is lost; Git keeps all history. |
 | You deleted or broke your own file | Right-click it in GitHub Desktop → **Discard changes** to get the last committed version back. |
 | Pink materials | The material uses a shader that isn't URP. Use a URP Lit material. |
-| You need someone else's system that isn't merged yet | Use a stand-in (see "The shared systems" in the tasks file) and mark it with `// TODO`. |
+| You need another group's part that isn't merged yet | Use a simple stand-in (see "Names everyone must use" in the tasks file) and mark it with `// TODO`. |
 | You're stuck | Use the 20-minute rule (below). |
 
 ## The 20-minute rule
@@ -94,8 +94,9 @@ Save and commit before switching. If Unity shows strange errors after a switch, 
 If you're stuck for 20 minutes:
 
 1. Ask your AI tool, with the exact error message and what you tried.
-2. Still stuck? Ask your buddy.
-3. Still stuck? Ask the instructor.
+2. Still stuck? Ask your partner.
+3. Still stuck? Ask the group whose part you're using.
+4. Still stuck? Ask the instructor.
 
 Being stuck is normal; staying stuck alone is not.
 
@@ -116,14 +117,15 @@ You may use any AI tool (Claude, ChatGPT, Copilot, Gemini…) to write code, exp
 
 ```text
 I'm a student building a Unity VR project. Context:
+
 - Unity 6000.3.16f1, Universal Render Pipeline (URP).
 - Meta XR SDK v207 (All-in-One) with OpenXR, target Meta Quest 3, hand tracking.
 - For interactions we use Meta's Interaction SDK and Building Blocks. We do NOT use XR Interaction Toolkit.
 - The visitor is seated by default. If they choose "Move around", they can teleport and snap turn, but only inside the scene's boundary. No smooth movement.
 - Scenes are played by Unity Timeline.
-- C# namespace: SaintCharbel. My files go in: Assets/_Project/Systems/<MySystem>/
-- My task: <paste your task card here>
-- My public API must be exactly: <paste your row from the "shared systems" table>
+- C# namespace: SaintCharbel. My files go in: Assets/_Project/Systems/<OurFolder>/
+- My task: <paste your task from the tasks file>
+- Names I must use exactly: <paste the rows you need from "Names everyone must use">
 Help me step by step. Keep the code simple, and explain each script in a few sentences so I can explain it in class.
 ```
 
@@ -133,17 +135,18 @@ Help me step by step. Keep the code simple, and explain each script in a few sen
 
 ```text
 Assets/_Project/
-  Systems/                 one folder per shared system, one owner each
-    Rig/  SceneFlow/  Gaze/  Interactions/  VoiceLines/  SceneController/  Characters/  Audio/
+  Systems/                 the shared parts, one owning group each
+    Rig/ (Group 1)   SceneFlow/ and Gaze/ (Group 2)   SceneController/ (Group 3)
+    Interactions/, Characters/ and Audio/ (Group 4)
       Scripts/  Prefabs/  <System>_Test.unity  README.md
   Sandbox/<YourName>/      your own test scenes; never part of the app
   Scenes/
     _Template/             the scene template (instructor)
-    Main/                  00_Welcome and 99_Credits (B), 01_Menu (C)
+    Main/                  00_Welcome, 01_Menu and 99_Credits (Group 2)
     Chapter1/ … Chapter4/  story scenes, one owner per scene
   Environments/<scene>/    greybox pieces for each scene (scene owner)
   Audio/VO/<scene>/        placeholder narration (scene owner)
-  Audio/SFX/  Audio/Ambience/  Audio/Music/   (H)
+  Audio/SFX/  Audio/Ambience/  Audio/Music/   (Group 4)
 Assets/Docs/               plan, brief, this guide, scene cards (Docs/scenes/)
 ```
 
@@ -158,7 +161,7 @@ Assets/Docs/               plan, brief, this guide, scene cards (Docs/scenes/)
 
 ### Your system's README
 
-Every system folder has a `README.md`. By the end of session 3 it must answer:
+Every folder in `Systems/` has a `README.md`, written by the group that owns it. By the end of session 3 it must answer:
 
 1. **What it does**, in one sentence.
 2. **How to use it**, in 3 to 6 steps (screenshots help).

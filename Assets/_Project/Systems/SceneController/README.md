@@ -1,12 +1,12 @@
 # SceneController
 
-**Owner:** student F · Task card: [semester1-tasks.md](../../../Docs/semester1-tasks.md), card F
+**Owner:** Group 3 (Story Player) · Tasks: [semester1-tasks.md](../../../Docs/semester1-tasks.md), section 5
 
 Will contain: The `[Scene Director]` prefab: plays the scene's Timeline, waits for interactions, goes to the next scene.
 
 ## My plan
 
-<!-- Session 1: what you'll build first, what you don't understand yet, which AI tool you'll use. -->
+<!-- Session 1: who is Person 1 and Person 2, and what you'll build first. -->
 
 ## What it does
 

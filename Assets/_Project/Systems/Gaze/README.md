@@ -1,12 +1,12 @@
 # Gaze
 
-**Owner:** student C · Task card: [semester1-tasks.md](../../../Docs/semester1-tasks.md), card C
+**Owner:** Group 2 (Screens and Navigation) · Tasks: [semester1-tasks.md](../../../Docs/semester1-tasks.md), section 5
 
 Will contain: GazePointer, GazeTarget and GazeTrigger, plus the `01_Menu` scene.
 
 ## My plan
 
-<!-- Session 1: what you'll build first, what you don't understand yet, which AI tool you'll use. -->
+<!-- Session 1: who is Person 1 and Person 2, and what you'll build first. -->
 
 ## What it does
 
