@@ -21,10 +21,10 @@ It is written for students who are learning Unity and VR. If a word is new to yo
 
 ## 1. The finished product
 
-A visitor sits on a chair (they may stand or move a little inside a marked area), puts on a Meta Quest 3 and:
+A visitor sits on a chair, puts on a Meta Quest 3 and:
 
 1. Chooses a caption language (English, Français, العربية) by looking at it.
-2. Sees a short welcome that asks them to stay seated.
+2. Chooses **Stay seated** (the default) or **Move around**. Moving means teleporting inside a marked area of each scene.
 3. Watches four chapters of Saint Charbel's life, 16 scenes in all, about 26 minutes. A narrator tells the story, with captions in their language.
 4. In a few scenes they can do one simple thing with their hands or eyes, such as raising the lamp.
 5. Between chapters they see a chapter menu. The next chapter starts on its own after a few seconds.
@@ -38,7 +38,10 @@ A visitor sits on a chair (they may stand or move a little inside a marked area)
 
 Every scene must follow these rules. If you think a scene needs to break one, ask the instructor first.
 
-1. **The visitor is seated by default, and can move only inside a boundary.** Scenes are designed for someone sitting. A visitor may still lean, stand or take a step, but each scene has a boundary (play area) around the seat. If they leave it, the view fades and asks them to come back. There is no joystick or teleport movement.
+1. **Seated by default; movement is optional and stays inside a boundary.** At the welcome screen the visitor chooses **Stay seated** (the default, chosen automatically after 10 seconds) or **Move around**.
+   - *Stay seated:* no locomotion. They can still lean or stand, but they stay at the Seat.
+   - *Move around:* teleport and snap turn, but only onto the floor inside the scene's boundary. Smooth (joystick) movement is not used, because it makes first-time visitors feel sick.
+   - *Either way:* every scene starts at the Seat, and the scene is designed to work from the Seat. If the visitor's head leaves the boundary (by walking or leaning), the view fades and asks them to come back.
 2. **The visitor does not control a character.** Charbel is like an actor in a film. His movements are played by Timeline (Unity's tool for sequencing animation, sound and events), not by the visitor.
 3. **One scene = one Timeline.** Everything that happens in a scene (Charbel's animation, narration, sounds, lights turning on, and later the captions) is placed on that scene's Timeline.
 4. **At most one interaction per scene.** Only three kinds exist: *look at something*, *touch something*, *grab and raise something*.
@@ -59,7 +62,7 @@ Every scene must follow these rules. If you think a scene needs to break one, as
 ### Scene flow
 
 ```text
-00_Welcome  (caption language choice, added in Phase 6; "please stay seated")
+00_Welcome  (Stay seated / Move around; caption language choice added in Phase 6)
      │
 01_Menu  (chapter menu, next chapter highlighted, auto-starts after 10 s)
      │
@@ -102,8 +105,9 @@ C2_S08_TheLamp.unity
 | Piece | Type | Purpose | Built in |
 |---|---|---|---|
 | VR Rig | Prefab | Camera rig, hand tracking, and all the systems below | 1.1 |
+| Locomotion | Prefab part | Teleport and snap turn, switched on only when the visitor chose Move around | 1.1 |
 | SeatAligner | Script | Places the visitor's head at the scene's viewing seat, facing forward | 1.2 |
-| PlayAreaBoundary | Script | The area around the seat; leaving it fades the view and asks the visitor to come back | 1.2 |
+| PlayAreaBoundary | Script | The area around the seat: teleporting is only possible inside it, and leaving it fades the view | 1.2 |
 | ScreenFader | Script | Fades to and from black | 1.3 |
 | SceneFlow | Script | Loads the next scene with a fade; remembers the chapter (and later the language) | 1.4 |
 | GazePointer + GazeTarget | Scripts | Select things by looking at them (dot plus filling circle) | 1.5 |
@@ -207,21 +211,22 @@ Most of this was done while setting up the project: Meta XR All-in-One SDK 207, 
 Build these in order; each one is small. Test every chunk in the headset before marking it done.
 
 **1.1 VR Rig prefab** · S · Needs 0.3
-- Use Meta's Building Blocks (Meta menu → Tools → Building Blocks): Camera Rig and Hand Tracking. Add no joystick or teleport movement. Save as `Systems/Rig/Prefabs/[VR Rig]`.
-- **Done when:** you see your tracked hands in the headset, and you can only move by physically moving your body.
+- Use Meta's Building Blocks (Meta menu → Tools → Building Blocks): Camera Rig, Hand Tracking and Locomotion (teleport and snap turn, no smooth movement). Locomotion is switched on only when `AppState.MovementEnabled` is true. Save as `Systems/Rig/Prefabs/[VR Rig]`.
+- **Done when:** you see your tracked hands in the headset; with movement off you can only move your body, and with movement on you can teleport and snap turn.
 - **Learn:** prefabs, the camera rig, hand tracking.
 
 **1.2 Seat aligner and boundary** · M · Needs 1.1
 - An empty object named "Seat" marks where the visitor's eyes should be. On start, and when the headset is put on, the rig is moved and turned so the visitor's head is at the Seat, facing its forward direction. This works the same for tall and short visitors and does not depend on the headset's own recenter.
-- A "Boundary" box around the Seat (start with about 2 × 2 m, and no bigger than the real free space around the chair) marks where the visitor may move. If their head leaves it, the view fades to dark with a short "Please step back" message, and fades back in when they return. Walls and objects in the scene should sit outside this area, so nobody reaches into a virtual wall.
-- **Done when:** however you sit or face when the scene starts, you end up at the Seat looking forward; and stepping out of the boundary fades the view, while stepping back in restores it.
+- A "Boundary" box around the Seat (start with about 2 × 2 m, and no bigger than the real free space around the chair) marks where the visitor may be. Teleporting is only possible onto the floor inside it (a teleport surface the same size as the box). If their head leaves it, the view fades to dark with a short "Please step back" message, and fades back in when they return. Walls and objects in the scene should sit outside this area, so nobody reaches into a virtual wall.
+- A scene owner may make the box bigger (for example 4 × 4 m) if the scene is worth exploring. It never limits the real room; the Quest's own boundary does that (8.2).
+- **Done when:** however you sit or face when the scene starts, you end up at the Seat looking forward; you can't teleport outside the box; and stepping out of it fades the view, while stepping back in restores it.
 
 **1.3 Screen fader** · S · Needs 1.1
 - A black sphere or quad in front of the eyes whose transparency animates. Provides `FadeOut(seconds)` and `FadeIn(seconds)`. Scenes start black and fade in.
 - **Done when:** the scene fades in on start and you can fade out with a test button.
 
 **1.4 Scene flow** · M · Needs 1.3
-- `SceneFlow.GoTo(sceneName)`: fade out, load the scene, fade in. A small static `AppState` stores the current chapter. The language is added in 6.2. Scenes are listed in Build Profiles in story order.
+- `SceneFlow.GoTo(sceneName)`: fade out, load the scene, fade in. A small static `AppState` stores the current chapter and the movement choice (`MovementEnabled`, false by default). The language is added in 6.2. Scenes are listed in Build Profiles in story order.
 - **Done when:** two test scenes switch back and forth with fades.
 - **Learn:** scene loading, static data.
 
@@ -231,8 +236,8 @@ Build these in order; each one is small. Test every chunk in the headset before 
 - **Learn:** raycasts, UnityEvents.
 
 **1.6 Welcome scene** · S · Needs 1.4
-- `00_Welcome`: a short message ("Please stay seated. Look around. Use your hands when you see this symbol."), then go to the menu. The language choice is added in 6.2.
-- **Done when:** the welcome plays and leads to the menu.
+- `00_Welcome`: two choices, **Stay seated** and **Move around** (gaze or touch). Stay seated is chosen automatically after 10 seconds. Then a short message ("Look around. Use your hands when you see this symbol."), then go to the menu. The language choice is added in 6.2.
+- **Done when:** the choice is stored in `AppState.MovementEnabled` and the welcome leads to the menu.
 
 **1.7 Chapter menu and credits** · M · Needs 1.5, 1.6
 - `01_Menu`: four chapter cards (title and years) selectable by gaze, or by touching them (Building Block: Poke Interaction). The next chapter is highlighted and starts by itself after 10 seconds. Titles are in one language for now; they are translated in 6.2.
@@ -508,6 +513,7 @@ Check what applies to the scene's current level:
 - [ ] Plays start to end on a Quest 3 at a steady frame rate (target 72 fps or higher)
 - [ ] Fades in and out
 - [ ] Boundary set; stepping out fades the view, and no scene object is inside the boundary
+- [ ] Works in both modes: seated (from the Seat) and moving (teleporting inside the boundary)
 - [ ] Narration plays in order and is clear over the music
 - [ ] Tradition label shown if the scene is a devotional tradition
 - [ ] The interaction (if any) works with hands and continues by itself after the timeout
@@ -632,7 +638,8 @@ Copy this for every scene into `Docs/scenes/C<x>_S<yy>.md`.
 | Only two characters | Chapter I without characters; one reusable generic monk; silhouettes and sound for everyone else |
 | Real voice lines have different lengths | One file per line; re-timing a Timeline is quick (5.4); captions follow the audio automatically |
 | Delivered assets are too heavy for Quest | Spec sent early (2.5); every delivery tested first (5.1) |
-| A visitor stands up and walks into the chair, a wall or another visitor | Seated by default; in-app boundary fades the view; free space and Quest boundary set up around each seat (8.2) |
+| A visitor stands up and walks into the chair, a wall or another visitor | Seated by default; movement is teleport-only inside the in-app boundary; the boundary fades the view; free space and Quest boundary set up around each seat (8.2) |
+| Movement makes visitors feel sick | Teleport and snap turn only, no smooth movement; Stay seated is the default |
 | Hand tracking fails (bad light, unusual hands) | Every interaction times out and continues; enough room light (8.2) |
 | Too many scenes for the time | Core vs Extra priorities; build levels; Extra scenes can stay tableaux |
 | New cohort each semester | Template, guide and handover (1.15, 9.1); small chunks |

@@ -119,7 +119,7 @@ I'm a student building a Unity VR project. Context:
 - Unity 6000.3.16f1, Universal Render Pipeline (URP).
 - Meta XR SDK v207 (All-in-One) with OpenXR, target Meta Quest 3, hand tracking.
 - For interactions we use Meta's Interaction SDK and Building Blocks. We do NOT use XR Interaction Toolkit.
-- The visitor is seated and does not walk or teleport.
+- The visitor is seated by default. If they choose "Move around", they can teleport and snap turn, but only inside the scene's boundary. No smooth movement.
 - Scenes are played by Unity Timeline.
 - C# namespace: SaintCharbel. My files go in: Assets/_Project/Systems/<MySystem>/
 - My task: <paste your task card here>

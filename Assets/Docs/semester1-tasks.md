@@ -21,8 +21,8 @@ Not this semester: captions, translations, the delivered 3D characters, real voi
 
 | | System you build | Your scenes (first one in bold) | Buddy | Difficulty |
 |---|---|---|---|---|
-| **A** | Rig, seat and boundary | **1 The mountain**, 2 The empty place | G | ★★☆ |
-| **B** | Fader and scene flow (+ Welcome, Credits) | **4 The grotto**, 3 The hermit uncles | F | ★★☆ |
+| **A** | Rig, movement and boundary | **1 The mountain**, 2 The empty place | G | ★★☆ |
+| **B** | Fader and scene flow (+ Welcome, Credits, headset-off reset) | **4 The grotto**, 3 The hermit uncles | F | ★★☆ |
 | **C** | Gaze selection (+ Chapter menu) | **5 Leaving home, a new name**, 6 The scriptorium | D | ★★☆ |
 | **D** | Touch and raise interactions (+ tradition label) | **8 The lamp**, 7 Priest, and sixteen years at Annaya | C | ★★☆ |
 | **E** | Voice lines (narration on the Timeline) | **10 The cell**, 9 To the hermitage | H | ★★★ |
@@ -77,10 +77,11 @@ All scripts use the namespace `SaintCharbel`.
 |---|---|---|
 | ScreenFader | B | `ScreenFader.Instance.FadeOut(float seconds)` and `FadeIn(float seconds)`. Both return a `Coroutine`, so others can `yield return` them. |
 | SceneFlow | B | `SceneFlow.GoTo(string sceneName)`: fade out, load the scene, fade in. |
-| AppState | B | `AppState.CurrentChapter` (int, 1 to 4). |
+| AppState | B | `AppState.CurrentChapter` (int, 1 to 4) and `AppState.MovementEnabled` (bool, false by default = Stay seated). |
+| Locomotion | A | Part of `[VR Rig]`: teleport and snap turn, on only when `AppState.MovementEnabled` is true. |
 | SeatAligner | A | On the rig. `Align()` puts the visitor's head at the object named `Seat`. |
-| PlayAreaBoundary | A | On the `Seat` object. `Vector3 size` (default 2 × 2.5 × 2 m). |
-| HeadsetPresence | A | On the rig. No API: after 10 s without the headset, it calls `SceneFlow.GoTo("00_Welcome")`. |
+| PlayAreaBoundary | A | On the `Seat` object. `Vector3 size` (default 2 × 2.5 × 2 m). Teleporting only works inside it; leaving it fades the view. |
+| HeadsetPresence | B | Added to the rig. No API: after 10 s without the headset, it calls `SceneFlow.GoTo("00_Welcome")`. |
 | GazeTarget | C | `float dwellSeconds = 2`, `UnityEvent OnSelected`. |
 | GazeTrigger, TouchTrigger, RaiseTrigger | C, D, D | Each has `UnityEvent OnCompleted`, `void ShowHint()` and `void ForceComplete()`. |
 | TraditionLabel | D | A prefab. Scenes turn it on with a Timeline Activation track. |
@@ -109,27 +110,27 @@ Visitor does nothing for 20 seconds
 
 Every card has a **minimum version**. If you run short of time, finish the minimum version properly; it's enough for the template to work. The full version is the goal.
 
-### A: Rig, seat and boundary
+### A: Rig, movement and boundary
 
-Development plan chunks 1.1, 1.2 and 1.14. Folder: `Assets/_Project/Systems/Rig/`.
+Development plan chunks 1.1 and 1.2. You already know locomotion; here it's optional and limited to the boundary. Folder: `Assets/_Project/Systems/Rig/`.
 
 | Session | Do | Done when |
 |---|---|---|
-| 2 | Make the `[VR Rig]` prefab with Meta Building Blocks: Camera Rig and Hand Tracking. **No locomotion.** Write `SeatAligner`: on start, move and turn the rig so the head is at `Seat`, facing the Seat's forward direction. | In the headset you see your hands, and whatever way you sit or face, you start at the Seat looking forward. |
-| 3 | Re-align when the headset is put back on. Write `PlayAreaBoundary`: head leaves the box → dark view and a "Please step back" text; back inside → normal. Write `HeadsetPresence`. Prefab, README, buddy test with G. | Stepping out of the box darkens the view; stepping back restores it. Headset off for 10 s → Welcome scene. |
+| 2 | Make the `[VR Rig]` prefab with Meta Building Blocks: Camera Rig, Hand Tracking and Locomotion (**teleport and snap turn only, no smooth movement**). Locomotion turns on only when `AppState.MovementEnabled` is true. Write `SeatAligner`: on start, move and turn the rig so the head is at `Seat`, facing the Seat's forward direction. | You see your hands; whatever way you sit or face, you start at the Seat looking forward; with `MovementEnabled` on you can teleport, and with it off you can't. |
+| 3 | Re-align when the headset is put back on. Write `PlayAreaBoundary`: a teleport floor the size of the box, so teleporting only works inside it, and head leaves the box → dark view and a "Please step back" text; back inside → normal. Prefab, README, buddy test with G. | You can't teleport outside the box. Stepping or leaning out of it darkens the view; stepping back restores it. |
 
-- **Minimum version:** rig prefab and Seat alignment on start only.
-- **Uses:** `ScreenFader` (B) for darkening. Until it's merged, use your own black quad in front of the camera.
+- **Minimum version:** rig prefab, Seat alignment on start, and locomotion that can be switched on and off.
+- **Uses:** `AppState.MovementEnabled` (B); until it's merged, use a checkbox on your own script. `ScreenFader` (B) for darkening. Until it's merged, use your own black quad in front of the camera.
 - **First prompt for the AI:** "Write a Unity C# component SeatAligner for a Meta XR camera rig (OVRCameraRig). On Start, move and rotate the rig root so that the CenterEyeAnchor ends up at the position of a Transform named Seat, facing Seat.forward, rotating only around the Y axis."
 
 ### B: Fader and scene flow
 
-Chunks 1.3, 1.4 and 1.6, plus the credits. Folder: `Assets/_Project/Systems/SceneFlow/`. You also own the scenes `00_Welcome` and `99_Credits`.
+Chunks 1.3, 1.4, 1.6 and 1.14, plus the credits. Folder: `Assets/_Project/Systems/SceneFlow/`. You also own the scenes `00_Welcome` and `99_Credits`.
 
 | Session | Do | Done when |
 |---|---|---|
-| 2 | `ScreenFader` (a black sphere around the camera whose transparency animates; scenes start black and fade in), `SceneFlow.GoTo`, `AppState`. | Two test scenes switch back and forth with a smooth fade, with no flash of the new scene before the fade. |
-| 3 | `00_Welcome`: a short message ("Please stay seated. Look around. Use your hands when you see this symbol."), then go to `01_Menu`. `99_Credits`: names of the team, sources from the brief, and the sound credits from H. Prefab, README, buddy test with F. | Welcome plays and leads to the menu; credits scroll or fade through, then return to Welcome. |
+| 2 | `ScreenFader` (a black sphere around the camera whose transparency animates; scenes start black and fade in), `SceneFlow.GoTo`, `AppState` (with `CurrentChapter` and `MovementEnabled`). | Two test scenes switch back and forth with a smooth fade, with no flash of the new scene before the fade. |
+| 3 | `00_Welcome`: two big choices, **Stay seated** and **Move around** (look at one or touch it). Stay seated is chosen after 10 s. Store it in `AppState.MovementEnabled`, show "Look around. Use your hands when you see this symbol.", then go to `01_Menu`. `99_Credits`: names of the team, sources from the brief, and the sound credits from H. `HeadsetPresence`: headset off for 10 s → `00_Welcome` (Meta SDK event `OVRManager.HMDUnmounted`). README, buddy test with F. | The choice reaches the next scenes; credits fade through, then return to Welcome; headset off for 10 s → Welcome. |
 
 - **Minimum version:** fade in on start, and `GoTo` that fades out and loads.
 - **First prompt for the AI:** "In Unity 6 URP for Meta Quest 3, write a ScreenFader singleton that fades a black inside-out sphere around the VR camera. FadeOut(float seconds) and FadeIn(float seconds) return a Coroutine. Then write a static SceneFlow.GoTo(string sceneName) that fades out, loads the scene asynchronously and fades in."
@@ -226,7 +227,7 @@ For **each of your 2 scenes**, create `Assets/Docs/scenes/C<chapter>_S<scene>.md
 The instructor prepares your scene file from the template. You'll find it in `Assets/_Project/Scenes/Chapter<N>/`. Only open your own scenes.
 
 1. Pull `main`, make a branch `yourname/c2-s08`, and open your scene.
-2. Build the environment from simple shapes (cubes, planes, ProBuilder) in `Environments/<scene>/`. Keep it outside the boundary box around the Seat.
+2. Build the environment from simple shapes (cubes, planes, ProBuilder) in `Environments/<scene>/`. Keep it outside the boundary box around the Seat. If your scene is worth exploring, you may make the box bigger; check that it still works from the Seat.
 3. Put your narration WAV files in `Audio/VO/<scene>/`, and turn them into voice lines (E's menu item).
 4. Open the scene's Timeline: put the voice lines on the Voice Line track, add an ambience clip, and put the `EndScene` signal at the end.
 5. Play it in the headset or the Simulator: it fades in, plays the narration, fades out and goes to the next scene.

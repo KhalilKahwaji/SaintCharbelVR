@@ -30,7 +30,7 @@ A permanent installation in the USEK library, pitched to the President by Dr. Re
 
 The developers are students in the VR/AR course. Many are using Unity, C# and VR for the first time, and each semester a new cohort starts over. The project is designed around that:
 
-- **Keep it as simple as possible.** Seated by default (visitors may move a little inside a boundary, with no joystick or teleport), scenes played by Unity Timeline, one shared scene template, at most one simple interaction per scene.
+- **Keep it as simple as possible.** Seated by default (visitors can choose to move, by teleporting inside each scene's boundary), scenes played by Unity Timeline, one shared scene template, at most one simple interaction per scene.
 - **Nothing can get stuck.** Every interaction is optional and continues on its own after a timeout, because visitors are first-time VR users and students are first-time developers.
 - **Placeholders first.** Every scene must work with greybox shapes, a placeholder Charbel and placeholder voice before the delivered 3D and voices arrive.
 - **Always finished.** All 16 scenes are first built as simple narrated tableaux, then improved, so there is a complete experience at every milestone.
