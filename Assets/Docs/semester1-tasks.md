@@ -139,7 +139,7 @@ When your starter task works, commit it and open a pull request.
 | Session | Person 1 | Person 2 |
 |---|---|---|
 | **2** | Turn the starter rig into a prefab `[VR Rig]`. Then the **seat**: each scene has an empty object called `Seat`. When the scene starts, move the rig so the visitor's eyes are at the Seat, looking the same way the Seat faces. | **Move around:** add teleport and snap turn to the rig (no smooth joystick movement). They work only when `AppState.MovementEnabled` is on (Group 2 makes this; until then use a checkbox on your script). |
-| **3** | **The boundary:** a box around the Seat, about 2 × 2 m. When the visitor's head leaves the box, the view goes dark and shows "Please step back". When they come back, it's normal again. | **Teleport only inside the boundary:** the teleport floor is the same size as the box, so they can't teleport outside it. 🟠 With the instructor |
+| **3** | **The boundary:** a box around the Seat, about 2 × 2 m. When the visitor's head leaves the box, the view goes dark and shows "Please step back". When they come back, it's normal again. | **Teleport only inside the boundary:** put the teleport surface only on the floor inside the box, the same size as the box. Anywhere without a teleport surface, the visitor can't teleport. |
 | **3** | **Headset taken off:** after 10 seconds without the headset, go back to the welcome screen. 🟠 With the instructor (the headset events can be tricky) | |
 
 **How to test**
