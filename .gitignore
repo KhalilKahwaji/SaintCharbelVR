@@ -112,3 +112,7 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Instructor-only files (session plans, tracker): kept out of the shared repo
+/[Aa]ssets/[Dd]ocs/[Ii]nstructor/
+/[Aa]ssets/[Dd]ocs/[Ii]nstructor.meta
