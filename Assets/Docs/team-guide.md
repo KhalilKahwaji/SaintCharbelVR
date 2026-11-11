@@ -113,7 +113,29 @@ You may use any AI tool (Claude, ChatGPT, Copilot, Gemini…) to write code, exp
 - **Paste the exact error** from the Console, not a description of it.
 - **If an AI tool edits files for you** (Copilot, Cursor, Claude Code), check the changed files in GitHub Desktop before committing. It must only touch your folder.
 
+### Using Claude Code (already set up for this project)
+
+Claude Code is an AI assistant that runs in a terminal inside the project folder. This project comes with instructions for it, so it already knows the project, the golden rules, your group's tasks and how to name branches. You don't need to paste the context below.
+
+**One-time setup**
+
+1. Install **Git for Windows** from git-scm.com (Claude Code needs it; keep the default options).
+2. Install **Claude Code**: open PowerShell and run `irm https://claude.ai/install.ps1 | iex`. Or install the **Claude Code** extension in VS Code. Sign in with your Claude account.
+3. Open a terminal in the project folder: in GitHub Desktop, **Repository → Open in Command Prompt** (or open the project folder in VS Code). Type `claude`.
+4. Type **`/setup`**. It asks your name and group, checks Git, and remembers which files are yours.
+
+**Every session**
+
+| Type | When | What it does |
+|---|---|---|
+| `/new-task` | At the start of a task | Pulls `main` and makes a branch with the right name, for example `maya/fader` |
+| `/finish-task` | When something works, and before you leave | Checks your changed files, commits only yours with their `.meta` files, pushes, and helps you open the pull request |
+
+These do the same steps as "Every session: the loop" above; you can still do them by hand in GitHub Desktop. Claude Code can make mistakes too: read what it changed, test it, and make sure you can explain it.
+
 ### Paste this at the start of every AI chat
+
+If you use another AI tool (or Claude in the browser), paste this first.
 
 ```text
 I'm a student building a Unity VR project. Context:

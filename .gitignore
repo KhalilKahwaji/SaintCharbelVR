@@ -116,3 +116,7 @@ InitTestScene*.unity*
 # Instructor-only files (session plans, tracker): kept out of the shared repo
 /[Aa]ssets/[Dd]ocs/[Ii]nstructor/
 /[Aa]ssets/[Dd]ocs/[Ii]nstructor.meta
+
+# Personal Claude Code files (written by /setup for each student)
+/CLAUDE.local.md
+/.claude/settings.local.json
