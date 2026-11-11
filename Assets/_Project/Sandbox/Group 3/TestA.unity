@@ -401,6 +401,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1061709851}
   - component: {fileID: 1061709850}
+  - component: {fileID: 1061709852}
   m_Layer: 0
   m_Name: TimelineManager
   m_TagString: Untagged
@@ -425,6 +426,10 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: -4899648498188932097, guid: 47710b22adae834498adf4b8c3b6bd86, type: 2}
     value: {fileID: 45544911}
+  - key: {fileID: -4012657118541189286, guid: 47710b22adae834498adf4b8c3b6bd86, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8772379783743999928, guid: 47710b22adae834498adf4b8c3b6bd86, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1061709851
@@ -442,6 +447,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1061709852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061709849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74e64579dc29249bb4e49d318abf2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneLoaderHelper
 --- !u!1 &1538502698
 GameObject:
   m_ObjectHideFlags: 0
