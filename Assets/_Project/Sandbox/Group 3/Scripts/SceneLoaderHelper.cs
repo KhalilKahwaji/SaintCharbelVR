@@ -1,10 +1,15 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoaderHelper : MonoBehaviour
+namespace SaintCharbel
 {
-    public void LoadTargetScene(string sceneName)
+    // Loads a scene by name. A Signal Receiver calls LoadTargetScene("TestB")
+    // when the Timeline reaches the Signal at the end.
+    public class SceneLoaderHelper : MonoBehaviour
     {
-        SceneManager.LoadScene(sceneName);
+        public void LoadTargetScene(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }
