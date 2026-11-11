@@ -8,12 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/_Project/Sandbox/Group 3/TestA.unity
-    guid: afbaebd5c5dc37a418081187396abcad
-  - enabled: 1
-    path: Assets/_Project/Sandbox/Group 3/TestB.unity
-    guid: b27e43b3f1bc3c84c97dac60b9844f3c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e543f248734a26c4dba17bbdbf76158b, type: 2}
