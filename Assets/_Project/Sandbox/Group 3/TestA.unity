@@ -402,6 +402,7 @@ GameObject:
   - component: {fileID: 1061709851}
   - component: {fileID: 1061709850}
   - component: {fileID: 1061709852}
+  - component: {fileID: 1061709853}
   m_Layer: 0
   m_Name: TimelineManager
   m_TagString: Untagged
@@ -429,7 +430,7 @@ PlayableDirector:
   - key: {fileID: -4012657118541189286, guid: 47710b22adae834498adf4b8c3b6bd86, type: 2}
     value: {fileID: 0}
   - key: {fileID: -8772379783743999928, guid: 47710b22adae834498adf4b8c3b6bd86, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 1061709853}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1061709851
@@ -459,6 +460,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e74e64579dc29249bb4e49d318abf2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoaderHelper
+--- !u!114 &1061709853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061709849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalReceiver
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 11e4f7b27bbdde44cb4566284e13bfc1, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1061709852}
+          m_TargetAssemblyTypeName: SaintCharbel.SceneLoaderHelper, Assembly-CSharp
+          m_MethodName: LoadTargetScene
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: TestB
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1538502698
 GameObject:
   m_ObjectHideFlags: 0
