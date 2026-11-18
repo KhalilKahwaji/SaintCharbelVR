@@ -33,6 +33,18 @@ namespace SaintCharbel
         [Tooltip("Name of the scene to open when the Timeline reaches the End Scene signal.")]
         public string nextScene;
 
+        [Tooltip("Tick this on the last scene of a chapter: End Scene then opens the chapter menu instead of nextScene.")]
+        public bool lastSceneOfChapter;
+
+        [Tooltip("The chapter menu scene (Group 2).")]
+        public string menuScene = "01_Menu";
+
+        [Tooltip("Group 4's narration audio object. The Timeline track named 'Narration' plays through it, so the music gets quieter under the voice.")]
+        public AudioSource narrationSource;
+
+        [Tooltip("Group 4's ambience audio object. The Timeline track named 'Ambience' plays through it.")]
+        public AudioSource ambienceSource;
+
         [Tooltip("How long to wait for the visitor before the action happens by itself.")]
         public float waitSeconds = 20f;
 
@@ -60,6 +72,8 @@ namespace SaintCharbel
             }
 
             BindSignalTracksToMe();
+            BindAudioTrack("Narration", narrationSource);
+            BindAudioTrack("Ambience", ambienceSource);
             director.Play();
         }
 
@@ -116,14 +130,34 @@ namespace SaintCharbel
             if (ending) return; // only once, even if the signal fires twice
             ending = true;
 
-            if (string.IsNullOrEmpty(nextScene))
+            // The last scene of a chapter goes back to the chapter menu.
+            string target = lastSceneOfChapter ? menuScene : nextScene;
+
+            if (string.IsNullOrEmpty(target))
             {
-                Debug.LogWarning("[Scene Director] reached End Scene but nextScene is empty.", this);
+                Debug.LogWarning("[Scene Director] reached End Scene but has no scene to go to. Fill in Next Scene (or Menu Scene).", this);
                 return;
             }
 
-            // TODO: use SceneFlow.GoTo(nextScene) once Group 2's SceneFlow is merged (it fades).
-            SceneManager.LoadScene(nextScene);
+            // TODO: use SceneFlow.GoTo(target) once Group 2's SceneFlow is merged (it fades).
+            SceneManager.LoadScene(target);
+        }
+
+        // Plays the Timeline track with this name through the given AudioSource, so its sound
+        // goes to that source's mixer group (Group 4's MainMixer). If the source is empty or the
+        // track already has one, nothing changes and the track plays straight to the headset.
+        private void BindAudioTrack(string trackName, AudioSource source)
+        {
+            if (source == null) return;
+
+            foreach (PlayableBinding output in director.playableAsset.outputs)
+            {
+                if (output.sourceObject is AudioTrack track && track.name == trackName
+                    && director.GetGenericBinding(track) == null)
+                {
+                    director.SetGenericBinding(track, source);
+                }
+            }
         }
 
         // We pause by setting the speed to 0 instead of director.Pause(): Pause() stops evaluating
