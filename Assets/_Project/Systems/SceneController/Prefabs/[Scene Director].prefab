@@ -64,6 +64,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaintCharbel.SceneController
   nextScene: 
+  waitSeconds: 20
+  waitSteps: []
 --- !u!114 &2287245421887059422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,12 +81,27 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: 2ee69afcf3b130244ba93ad0ac75e429, type: 2}
+    - {fileID: 11400000, guid: 88808fd4053965545b2a6c5b97475009, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 7401738799075276428}
           m_TargetAssemblyTypeName: SaintCharbel.SceneController, Assembly-CSharp
           m_MethodName: EndScene
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7401738799075276428}
+          m_TargetAssemblyTypeName: SaintCharbel.SceneController, Assembly-CSharp
+          m_MethodName: Wait
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
