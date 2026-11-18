@@ -50,8 +50,15 @@ namespace SaintCharbel
         [ContextMenu("Show Hint")]
         public void ShowHint()
         {
-            if (completed || hint == null)
+            if (completed)
             {
+                Debug.Log(name + ": no hint, the raise is already done.");
+                return;
+            }
+
+            if (hint == null)
+            {
+                Debug.LogWarning(name + ": ShowHint was called but no Hint object is set in the Inspector.");
                 return;
             }
 
