@@ -42,7 +42,14 @@ namespace SaintCharbel
         [Tooltip("Group 4's narration audio object. The Timeline track named 'Narration' plays through it, so the music gets quieter under the voice.")]
         public AudioSource narrationSource;
 
-        [Tooltip("Group 4's ambience audio object. The Timeline track named 'Ambience' plays through it.")]
+        [Tooltip("The scene's background sound. It loops from the start of the scene and keeps playing during Wait signals. Don't put ambience on the Timeline.")]
+        public AudioClip ambienceClip;
+
+        [Tooltip("How loud the background sound is, so the voice stays easy to hear.")]
+        [Range(0f, 1f)]
+        public float ambienceVolume = 0.3f;
+
+        [Tooltip("Group 4's ambience audio object, so the ambience gets quieter under the voice. If empty, the Scene Director plays it itself.")]
         public AudioSource ambienceSource;
 
         [Tooltip("How long to wait for the visitor before the action happens by itself.")]
@@ -65,6 +72,8 @@ namespace SaintCharbel
 
         private void Start()
         {
+            StartAmbience();
+
             if (director.playableAsset == null)
             {
                 Debug.LogWarning("[Scene Director] has no Timeline. Drag the scene's Timeline into the Playable Director.", this);
@@ -73,8 +82,23 @@ namespace SaintCharbel
 
             BindSignalTracksToMe();
             BindAudioTrack("Narration", narrationSource);
-            BindAudioTrack("Ambience", ambienceSource);
             director.Play();
+        }
+
+        // The ambience is played here, not on the Timeline: a Wait freezes the whole Timeline,
+        // and the background sound must keep going while the visitor does the action.
+        private void StartAmbience()
+        {
+            if (ambienceClip == null) return;
+
+            // Use Group 4's ambience object if there is one (it goes to the Ambience mixer group).
+            // TODO: until Group 4's audio objects are merged, we add a plain AudioSource to ourselves.
+            AudioSource source = ambienceSource != null ? ambienceSource : gameObject.AddComponent<AudioSource>();
+            source.clip = ambienceClip;
+            source.loop = true;
+            source.volume = ambienceVolume;
+            source.spatialBlend = 0f; // heard the same everywhere
+            source.Play();
         }
 
         // Called by the Signal Receiver when the Timeline reaches a Wait signal.

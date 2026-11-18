@@ -45,11 +45,11 @@ Every scene's narration and background sound live on its Timeline. Your scene mu
 3. **Open the Timeline.** Select the `[Scene Director]` and open **Window → Sequencing → Timeline**.
 4. **Add the narration track.** Click **+** → **Audio Track**, then rename it exactly `Narration`. Leave its object slot empty: the `[Scene Director]` connects it to the narration sound object when the scene starts (see step 10).
 5. **Add the lines in order.** Drag `_01` onto the Narration track at 0 s. Drag `_02` so it starts about **0.5 s** after `_01` ends, then `_03` the same way, and so on. The clips must not overlap.
-6. **Add the background sound.** Click **+** → **Audio Track**, rename it exactly `Ambience`, and drag the background sound onto it at 0 s. Drag the clip's right edge until it reaches the end of your scene. Select the clip and tick **Loop** in the Inspector if the sound is shorter than the scene.
-7. **Make the background quieter.** Select the `Ambience` track (its name on the left) and set **Volume** to about `0.3` in the Inspector, so the voice is easy to hear.
+6. **Add the background sound, not on the Timeline.** Select the `[Scene Director]` and drag the background sound into **Ambience Clip**. It loops from the start of the scene and keeps playing while the Timeline waits at a Wait signal. (A sound on the Timeline would stop at every Wait.)
+7. **Make the background quieter.** Set **Ambience Volume** to about `0.3`, so the voice is easy to hear.
 8. **End the scene after the last line.** Drag the **End Scene** signal on the Signal Track to about **1 s after the last narration clip ends**.
 9. **Test.** Press Play. You hear the lines in order over the background, and the next scene opens after the last line.
-10. **Connect the sound groups.** Drag Group 4's narration and ambience audio objects into your scene. Select the `[Scene Director]` and drag them into **Narration Source** and **Ambience Source**. The tracks now play through Group 4's `MainMixer`, so the music and ambience get quieter while the voice plays.
+10. **Connect the sound groups.** Drag Group 4's narration and ambience audio objects into your scene. Select the `[Scene Director]` and drag them into **Narration Source** and **Ambience Source**. The narration and the ambience now play through Group 4's `MainMixer`, so the music and ambience get quieter while the voice plays.
 
 The example is `NarrationTest/Narration_Test.unity`: 3 lines (`VO_Test_01` to `_03`, made with Windows text-to-speech) over a generated wind loop (`Amb_Test_Wind`).
 
@@ -57,6 +57,6 @@ The example is `NarrationTest/Narration_Test.unity`: 3 lines (`VO_Test_01` to `_
 
 - It uses `SceneManager.LoadScene` for now, so there is no fade. It will switch to Group 2's `SceneFlow.GoTo` once that is merged (`// TODO` in `SceneController.cs`).
 - The next scene must be in the Build Profiles scene list, or loading it fails. Only the instructor changes that list on `main`; add scenes to your local list only for testing.
-- Group 4's `MainMixer` and audio objects aren't merged yet, so step 10 can't be done in real scenes yet. Until then, leave Narration Source and Ambience Source empty: the tracks play straight to the headset, without the music getting quieter.
+- Group 4's `MainMixer` and audio objects aren't merged yet, so step 10 can't be done in real scenes yet. Until then, leave Narration Source and Ambience Source empty: the sound plays straight to the headset, without the music getting quieter.
 - `01_Menu` (Group 2) doesn't exist yet. A last scene of a chapter shows an error at End Scene until it's merged and in Build Profiles.
-- While the Timeline waits at a Wait signal, the whole Timeline is frozen, including the Ambience track, so it goes quiet. If that's a problem in your scene, ask Group 4 to let their ambience object play the loop by itself instead of putting it on the Timeline.
+- While the Timeline waits at a Wait signal, everything on the Timeline is frozen. That's why the ambience goes in **Ambience Clip** and never on the Timeline.
