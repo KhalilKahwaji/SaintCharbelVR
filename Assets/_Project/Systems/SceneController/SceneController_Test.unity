@@ -448,8 +448,16 @@ PrefabInstance:
       value: '[Scene Director]'
       objectReference: {fileID: 0}
     - target: {fileID: 7401738799075276428, guid: fbb4ce53c9f6b03498d0d01a5d88ded1, type: 3}
-      propertyPath: nextScene
+      propertyPath: menuScene
       value: SampleScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401738799075276428, guid: fbb4ce53c9f6b03498d0d01a5d88ded1, type: 3}
+      propertyPath: nextScene
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401738799075276428, guid: fbb4ce53c9f6b03498d0d01a5d88ded1, type: 3}
+      propertyPath: lastSceneOfChapter
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
