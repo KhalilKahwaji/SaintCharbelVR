@@ -452,6 +452,10 @@ PrefabInstance:
       value: SampleScene
       objectReference: {fileID: 0}
     - target: {fileID: 7401738799075276428, guid: fbb4ce53c9f6b03498d0d01a5d88ded1, type: 3}
+      propertyPath: ambienceClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c6e45d221867c66489c977d5d35ef901, type: 3}
+    - target: {fileID: 7401738799075276428, guid: fbb4ce53c9f6b03498d0d01a5d88ded1, type: 3}
       propertyPath: waitSteps.Array.size
       value: 1
       objectReference: {fileID: 0}

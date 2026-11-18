@@ -437,7 +437,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 68eb4dbdb28ccbf4f9d2095ce6c64640, type: 2}
     - target: {fileID: 4527202511258379253, guid: fbb4ce53c9f6b03498d0d01a5d88ded1, type: 3}
       propertyPath: m_SceneBindings.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4527202511258379253, guid: fbb4ce53c9f6b03498d0d01a5d88ded1, type: 3}
       propertyPath: m_SceneBindings.Array.data[0].key
@@ -450,7 +450,7 @@ PrefabInstance:
     - target: {fileID: 4527202511258379253, guid: fbb4ce53c9f6b03498d0d01a5d88ded1, type: 3}
       propertyPath: m_SceneBindings.Array.data[2].key
       value: 
-      objectReference: {fileID: 9108397376119795457, guid: 68eb4dbdb28ccbf4f9d2095ce6c64640, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 6489190040555395364, guid: fbb4ce53c9f6b03498d0d01a5d88ded1, type: 3}
       propertyPath: m_Name
       value: '[Scene Director]'
@@ -459,6 +459,10 @@ PrefabInstance:
       propertyPath: nextScene
       value: SamlpeScene
       objectReference: {fileID: 0}
+    - target: {fileID: 7401738799075276428, guid: fbb4ce53c9f6b03498d0d01a5d88ded1, type: 3}
+      propertyPath: ambienceClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c6e45d221867c66489c977d5d35ef901, type: 3}
     - target: {fileID: 7401738799075276428, guid: fbb4ce53c9f6b03498d0d01a5d88ded1, type: 3}
       propertyPath: narrationSource
       value: 
