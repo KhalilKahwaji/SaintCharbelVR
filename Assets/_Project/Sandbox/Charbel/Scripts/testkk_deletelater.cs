@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 // Touch cube (TouchTrigger): J = show hint,  K = force complete (prints "Touched!")
 // Tradition label:           L = show / hide
 // Sound (MainMixer):         N = test narration (wind ducks),  B = bell on your left
+// Charbel Timeline:          R = replay walk, kneel and pray
 public class testkk_deletelater : MonoBehaviour
 {
     public RaiseTrigger trigger;
@@ -14,6 +15,7 @@ public class testkk_deletelater : MonoBehaviour
     public TraditionLabel label;
     public AudioSource narration;
     public AudioSource sfx;
+    public UnityEngine.Playables.PlayableDirector director;
 
     void Update()
     {
@@ -41,6 +43,12 @@ public class testkk_deletelater : MonoBehaviour
             Debug.Log("J pressed: touch cube ShowHint");
             if (touchTrigger != null) touchTrigger.ShowHint();
             else Debug.LogWarning("Drag TouchCube into the Touch Trigger field of testkk_deletelater.");
+        }
+
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            Debug.Log("R pressed: replay Charbel's Timeline from the start");
+            if (director != null) { director.time = 0; director.Play(); }
         }
 
         if (Keyboard.current.nKey.wasPressedThisFrame)
