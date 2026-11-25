@@ -17,6 +17,17 @@ public class testkk_deletelater : MonoBehaviour
     public AudioSource sfx;
     public UnityEngine.Playables.PlayableDirector director;
 
+    [Tooltip("Seconds after Play before the test narration starts by itself (0 = only with the N key).")]
+    public float autoNarrationDelay = 5f;
+
+    void Start()
+    {
+        if (narration != null && autoNarrationDelay > 0f)
+        {
+            narration.PlayDelayed(autoNarrationDelay);
+        }
+    }
+
     void Update()
     {
         if (Keyboard.current == null)

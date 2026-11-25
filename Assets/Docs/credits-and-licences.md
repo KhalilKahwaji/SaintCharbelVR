@@ -5,6 +5,7 @@ Every sound, music track, font, model or texture that we didn't make ourselves g
 | File (path in Assets/) | What it is | Source (URL) | Author | Licence | Added by |
 |---|---|---|---|---|---|
 | `_Project/Audio/SFX/SFX_ActionComplete.wav` | Soft chime when a scene action is completed | Generated in code (three sine tones with a fade), no outside source | Charbel (Group 4) | Our own (no licence needed) | Charbel |
+| `_Project/Audio/Music/MUS_CalmPad.wav` | Calm, slow chord pad, 32 s seamless loop (placeholder music) | Generated in code (soft sine chords: A minor, F, C, G), no outside source | Charbel (Group 4) | Our own (no licence needed) | Charbel |
 | `_Project/Audio/Ambience/AMB_Wind.wav` | Mountain wind, seamless loop (placeholder) | Generated in code (filtered noise with slow gusts), no outside source | Charbel (Group 4) | Our own (no licence needed) | Charbel |
 | `_Project/Audio/Ambience/AMB_Birds.wav` | Bird chirps, seamless loop (placeholder, replace with a real recording) | Generated in code (short rising tones), no outside source | Charbel (Group 4) | Our own (no licence needed) | Charbel |
 | `_Project/Audio/Ambience/AMB_Candle.wav` | Quiet candle flame with small crackles, seamless loop (placeholder) | Generated in code (soft noise with clicks), no outside source | Charbel (Group 4) | Our own (no licence needed) | Charbel |
