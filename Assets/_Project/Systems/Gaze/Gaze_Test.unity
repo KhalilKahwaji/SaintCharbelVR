@@ -1345,6 +1345,8 @@ GameObject:
   - component: {fileID: 1762101459}
   - component: {fileID: 1762101458}
   - component: {fileID: 1762101457}
+  - component: {fileID: 1762101462}
+  - component: {fileID: 1762101461}
   m_Layer: 0
   m_Name: OtherCube
   m_TagString: Untagged
@@ -1445,6 +1447,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1762101461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762101456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652c91104a86fe14c96d4aab165ed9b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaintCharbel.GazeTrigger
+  hint: {fileID: 0}
+  OnCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1762101462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762101456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6c3242628f6b248b8f0ed9c24f8dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaintCharbel.GazeTarget
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1814378908
 GameObject:
   m_ObjectHideFlags: 0
