@@ -20,8 +20,8 @@ namespace SaintCharbel
         [Tooltip("How long (in seconds) the glow takes to fade in and back out.")]
         public float glowDuration = 1.5f;
 
-        [Tooltip("Plays the sound. Its Output should be the SFX group of MainMixer.")]
-        public AudioSource audioSource; // TODO: set Output to MainMixer > SFX when Group 4's mixer is merged
+        [Tooltip("Plays the sound. Set its Output to MainMixer > SFX.")]
+        public AudioSource audioSource;
 
         [Tooltip("The small sound played on completion, for example a soft chime.")]
         public AudioClip sound;

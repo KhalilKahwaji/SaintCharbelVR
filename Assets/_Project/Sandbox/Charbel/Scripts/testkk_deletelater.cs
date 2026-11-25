@@ -6,11 +6,14 @@ using UnityEngine.InputSystem;
 // Grab cube (RaiseTrigger):  H = show hint,  Space = force complete (rises by itself)
 // Touch cube (TouchTrigger): J = show hint,  K = force complete (prints "Touched!")
 // Tradition label:           L = show / hide
+// Sound (MainMixer):         N = test narration (wind ducks),  B = bell on your left
 public class testkk_deletelater : MonoBehaviour
 {
     public RaiseTrigger trigger;
     public TouchTrigger touchTrigger;
     public TraditionLabel label;
+    public AudioSource narration;
+    public AudioSource sfx;
 
     void Update()
     {
@@ -38,6 +41,18 @@ public class testkk_deletelater : MonoBehaviour
             Debug.Log("J pressed: touch cube ShowHint");
             if (touchTrigger != null) touchTrigger.ShowHint();
             else Debug.LogWarning("Drag TouchCube into the Touch Trigger field of testkk_deletelater.");
+        }
+
+        if (Keyboard.current.nKey.wasPressedThisFrame)
+        {
+            Debug.Log("N pressed: play test narration (the wind should get quieter)");
+            if (narration != null) narration.Play();
+        }
+
+        if (Keyboard.current.bKey.wasPressedThisFrame)
+        {
+            Debug.Log("B pressed: bell from the SFX object (should come from your left)");
+            if (sfx != null) sfx.Play();
         }
 
         if (Keyboard.current.lKey.wasPressedThisFrame)
