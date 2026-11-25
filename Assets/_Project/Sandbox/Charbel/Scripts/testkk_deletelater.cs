@@ -5,10 +5,12 @@ using UnityEngine.InputSystem;
 // Test only, delete later.
 // Grab cube (RaiseTrigger):  H = show hint,  Space = force complete (rises by itself)
 // Touch cube (TouchTrigger): J = show hint,  K = force complete (prints "Touched!")
+// Tradition label:           L = show / hide
 public class testkk_deletelater : MonoBehaviour
 {
     public RaiseTrigger trigger;
     public TouchTrigger touchTrigger;
+    public TraditionLabel label;
 
     void Update()
     {
@@ -36,6 +38,13 @@ public class testkk_deletelater : MonoBehaviour
             Debug.Log("J pressed: touch cube ShowHint");
             if (touchTrigger != null) touchTrigger.ShowHint();
             else Debug.LogWarning("Drag TouchCube into the Touch Trigger field of testkk_deletelater.");
+        }
+
+        if (Keyboard.current.lKey.wasPressedThisFrame)
+        {
+            Debug.Log("L pressed: tradition label Toggle");
+            if (label != null) label.Toggle();
+            else Debug.LogWarning("Drag TraditionLabel into the Label field of testkk_deletelater.");
         }
 
         if (Keyboard.current.kKey.wasPressedThisFrame)
