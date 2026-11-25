@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SaintCharbel
 {
@@ -13,6 +14,9 @@ namespace SaintCharbel
 
         [Tooltip("How many seconds the visitor must look at a target to select it.")]
         public float selectTime = 2f;
+
+        [Tooltip("The Ring image (Image Type: Filled). It fills up while looking at a target.")]
+        public Image ring;
 
         // The target we are looking at now (null = none).
         private GazeTarget currentTarget;
@@ -42,19 +46,32 @@ namespace SaintCharbel
                 alreadySelected = false;
             }
 
-            // Not looking at a target: nothing more to do this frame.
+            // Not looking at a target: empty ring, nothing more to do this frame.
             if (currentTarget == null)
             {
+                SetRing(0f);
                 return;
             }
 
             // Still looking at the same target: count the time.
             timer += Time.deltaTime;
 
+            // 0 at the start, 1 (full) after selectTime seconds.
+            SetRing(timer / selectTime);
+
             if (timer >= selectTime && !alreadySelected)
             {
                 alreadySelected = true;
                 currentTarget.Select();
+            }
+        }
+
+        // Shows how full the ring is: 0 = empty, 1 = full.
+        void SetRing(float amount)
+        {
+            if (ring != null)
+            {
+                ring.fillAmount = Mathf.Clamp01(amount);
             }
         }
     }
