@@ -6,16 +6,25 @@ Will contain: The `[VR Rig]` prefab: camera rig and hand tracking, SeatAligner, 
 
 ## My plan
 
-<!-- Session 1: who is Person 1 and Person 2, and what you'll build first. -->
+- **Person 1 (Krista):** the `[VR Rig]` prefab and the seat (`SeatAligner`), then the boundary ("Please step back"), then going back to the welcome screen when the headset is taken off (with the instructor).
+- **Person 2 (Christy):** Move around: teleport and snap turn (only when `AppState.MovementEnabled` is on), and teleporting only inside the boundary.
 
 ## What it does
 
-<!-- One sentence. -->
+`[VR Rig]` is the visitor: their eyes (camera) and hands. When a scene starts, it moves the visitor to the scene's `Seat`, looking the way the Seat faces.
 
 ## How to use it
 
-<!-- 3 to 6 steps. Screenshots help. -->
+1. Drag `Prefabs/[VR Rig]` into your scene. Delete any other camera (for example `Main Camera`).
+2. Make an empty GameObject and name it exactly **`Seat`**.
+3. Put the Seat where the visitor's **eyes** should be: about **1.2 m** above the floor for a seated visitor.
+4. Turn the Seat (Rotation Y) so its **blue arrow** (Z, forward) points at what the visitor should look at first.
+5. Press Play: the visitor starts at the Seat, facing that way, even if they were sitting turned to the side.
+
+You don't need to set anything on the `Seat Aligner` component: it finds the object named `Seat` by itself.
 
 ## Known problems
 
-<!-- Anything the next person should know. -->
+- If the scene has no object named exactly `Seat`, the rig stays where it is and the Console shows a yellow warning: "SeatAligner: no Seat in the scene…".
+- The rig is moved once, when the scene starts. If the visitor moves their chair later, they aren't moved back.
+- Boundary, teleport and "headset taken off" aren't built yet.
